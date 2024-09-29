@@ -1,0 +1,33 @@
+name: build and test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  scalafix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@3
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Cache SBT
+        uses: actions/cache@3
+        with:
+          path: |
+            ~/.sbt
+            ~/.ivy2
+          key: ${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}
+
+      - name: Install SB
+        run: sbt update
+
