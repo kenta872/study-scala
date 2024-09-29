@@ -10,7 +10,7 @@ class SampleModifierClass(x: Int) {
      * 呼ばれたときに初めて計算
      * 以降は結果のみを参照する
      */
-    lazy val lazySample = {
+    lazy val lazySample: Double = {
         println("calculate")
         x * x * math.Pi
     }
