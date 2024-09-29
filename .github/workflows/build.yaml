@@ -31,3 +31,5 @@ jobs:
       - name: Install SB
         run: sbt update
 
+      - name: Run Scalafix
+        run: sbt "scalafixAll --check"
