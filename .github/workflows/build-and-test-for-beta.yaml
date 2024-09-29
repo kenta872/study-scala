@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - release/*
+      - master
 jobs:
   build-and-test-for-beta:
     runs-on: ubuntu-latest
