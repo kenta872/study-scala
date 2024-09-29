@@ -17,14 +17,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Cache SBT
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.sbt
-            ~/.ivy2/cache
-          key: ${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}
-
       - name: Install SB
         run: sbt update
 
