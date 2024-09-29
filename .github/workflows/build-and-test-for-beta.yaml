@@ -7,6 +7,9 @@ on:
 jobs:
   build-and-test-for-beta:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
