@@ -59,7 +59,7 @@ class SampleMatchClass {
      */
     def matchMethod5[A](list: List[A]): A = list match {
         case x :: _ :: Nil => x
-        case x :: xs => matchMethod5(xs)
+        case _ :: xs => matchMethod5(xs)
         case _ => sys.error("list should have two elements at least")
     }
 

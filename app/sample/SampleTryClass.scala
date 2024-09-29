@@ -66,7 +66,7 @@ class SampleTryClass {
      */
     def tryMethod7(): Unit = {
         div(10, 0).recover {
-            case e: ArithmeticException => 0
+            case _: ArithmeticException => 0
         }
     }
 
@@ -76,7 +76,7 @@ class SampleTryClass {
      */
     def tryMethod8(): Unit = {
         div(10, 0).recoverWith {
-            case e: ArithmeticException => Try(1 + 1)
+            case _: ArithmeticException => Try(1 + 1)
         }
     }
 

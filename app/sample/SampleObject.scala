@@ -113,7 +113,7 @@ object SampleObject extends App {
     /**
      * 【caseクラス】
      */
-    val sampleCase = SampleCaseClass("sampleArg1", "sampleArg2")
+    val sampleCase: SampleCaseClass = SampleCaseClass("sampleArg1", "sampleArg2")
     sampleCase match {
         case SampleCaseClass("sampleArg1", "sampleArg2") => println("Hit!")
         case _ => println("Not Hit!")

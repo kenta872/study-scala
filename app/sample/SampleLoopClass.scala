@@ -45,7 +45,7 @@ class SampleLoopClass {
      * flatMap
      */
     def loopMethod4(): Unit = {
-        val flat = Seq(Seq(1, 2), Seq(3, 4)).flatMap { s =>
+        Seq(Seq(1, 2), Seq(3, 4)).flatMap { s =>
             println(s)
             s
         }

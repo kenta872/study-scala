@@ -57,7 +57,7 @@ class SampleFuture {
 
     def futureMethod5(): Unit = {
         getAsync("http://ssssss/").recover {
-            case e => "NotFound?"
+            case _ => "NotFound?"
         }.foreach {
             body => println("指定したURLのbody : " + body)
         }
@@ -65,7 +65,7 @@ class SampleFuture {
 
     def futureMethod6(): Unit = {
         getAsync("http://2012.scalamatsuri.ong/").recoverWith {
-            case t: UnknownHostException =>
+            case _: UnknownHostException =>
                 getAsync("http://2013.scalamatsuri.org/")
             case t => Future.failed(t)
         }.foreach {
