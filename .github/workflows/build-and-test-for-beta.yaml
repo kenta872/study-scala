@@ -5,7 +5,7 @@ on:
     branches:
       - release/*
 jobs:
-  scalafix:
+  build-and-test-for-beta:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
