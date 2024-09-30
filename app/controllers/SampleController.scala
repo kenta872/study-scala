@@ -11,15 +11,15 @@ import scala.concurrent.ExecutionContext
 class SampleController @Inject()(userService: UserService,
                                  cc: MessagesControllerComponents)
                                 (implicit ec: ExecutionContext) extends MessagesAbstractController(cc) {
-    def findByName(name: String): Action[AnyContent] = Action { implicit request =>
+    def findByName(name: String): Action[AnyContent] = Action { _ =>
         Ok(formatNames(Seq(name)))
     }
 
-    def findAll: Action[AnyContent] = Action.async { implicit request =>
+    def findAll: Action[AnyContent] = Action.async { _ =>
         userService.findAll().map { result =>
             Ok(Json.toJson(result))
         }.recover {
-            case e: Exception =>
+            case _: Exception =>
                 InternalServerError("An error occurred")
         }
     }
