@@ -23,8 +23,8 @@ libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.33"
 libraryDependencies ++= Seq(
     "com.typesafe.play" %% "play-slick" % "5.3.0",
     "com.typesafe.play" %% "play-slick-evolutions" % "5.3.0",
-    "com.typesafe.slick" %% "slick" % "3.5.0",
-    "com.typesafe.slick" %% "slick-hikaricp" % "3.5.1"
+    "com.typesafe.slick" %% "slick" % "3.5.2",
+    "com.typesafe.slick" %% "slick-hikaricp" % "3.5.2"
 )
 
 // Test

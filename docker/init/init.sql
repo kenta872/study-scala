@@ -1,3 +1,5 @@
+DROP SCHEMA IF EXISTS sample_db;
+CREATE SCHEMA sample_db;
 USE sample_db;
 
 DROP TABLE IF EXISTS user_tbl;
