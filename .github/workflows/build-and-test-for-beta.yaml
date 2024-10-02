@@ -21,7 +21,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install SB
+      - name: Install SBT
         run: sbt update
 
       - name: Run Scalafix
