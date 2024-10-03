@@ -15,6 +15,8 @@ class SampleController @Inject()(userService: UserService,
                                 (implicit ec: ExecutionContext) extends MessagesAbstractController(cc) {
     def findByName(name: String): Action[AnyContent] = Action { _ =>
         sampleConditionClass.conditionMethod1()
+        // コンソールにメッセージを出力したい
+        println("090-1234-5678")
         Ok(formatNames(Seq(name)))
     }
 

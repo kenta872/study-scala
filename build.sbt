@@ -15,6 +15,11 @@ lazy val commonSettings = Seq(
         "com.typesafe.slick" %% "slick" % "3.5.2",
         "com.typesafe.slick" %% "slick-hikaricp" % "3.5.2"
     ),
+    // Logback
+    libraryDependencies ++= Seq(
+        "ch.qos.logback" % "logback-classic" % "1.5.6",
+        "ch.qos.logback" % "logback-core" % "1.5.6",
+    ),
     // Test
     libraryDependencies ++= Seq(
         "com.typesafe.play" %% "play-test" % "2.9.4" % Test,
@@ -24,8 +29,8 @@ lazy val commonSettings = Seq(
 )
 lazy val root = (project in file("."))
     .aggregate(studyScalaApp)
-    .aggregate(studyScalaCommon)
     .aggregate(studyScalaBatch)
+    .aggregate(studyScalaCommon)
 
 lazy val studyScalaApp = (project in file("study-scala-app"))
     .enablePlugins(PlayScala)
