@@ -1,6 +1,6 @@
 package controllers
 
-import exception.UnauthorizedException
+import play.api.Logger
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
 import sample.SampleConditionClass
@@ -14,11 +14,13 @@ class SampleController @Inject()(userService: UserService,
                                  sampleConditionClass: SampleConditionClass,
                                  cc: MessagesControllerComponents)
                                 (implicit ec: ExecutionContext) extends MessagesAbstractController(cc) {
+
+    private val logger = Logger(this.getClass)
+
     def findByName(name: String): Action[AnyContent] = Action { _ =>
         sampleConditionClass.conditionMethod1()
         // コンソールにメッセージを出力したい
-        println("090-1234-5678")
-        throw new UnauthorizedException("Invalid name")
+        logger.info("090-1234-5678")
         Ok(formatNames(Seq(name)))
     }
 

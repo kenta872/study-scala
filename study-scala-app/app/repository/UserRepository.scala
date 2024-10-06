@@ -2,6 +2,7 @@ package repository
 
 import model.entity.User
 import model.table.UserTable
+import play.api.Logger
 import play.api.db.slick.DatabaseConfigProvider
 import slick.jdbc.JdbcProfile
 import slick.jdbc.MySQLProfile.api._
@@ -15,11 +16,13 @@ class UserRepository @Inject()(dbConfigProvider: DatabaseConfigProvider)(implici
     private val dbConfig = dbConfigProvider.get[JdbcProfile]
     private val userTable = TableQuery[UserTable]
 
+    private val logger = Logger(this.getClass)
+
     def findAll(): Future[Seq[User]] = {
         val action = userTable.result
         dbConfig.db.run(action).recover({
             case e: Exception =>
-                println(e.getMessage)
+                logger.error(e.getMessage)
                 Seq.empty
         })
     }
