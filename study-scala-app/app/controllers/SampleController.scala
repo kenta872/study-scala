@@ -1,5 +1,6 @@
 package controllers
 
+import exception.UnauthorizedException
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
 import sample.SampleConditionClass
@@ -17,6 +18,7 @@ class SampleController @Inject()(userService: UserService,
         sampleConditionClass.conditionMethod1()
         // コンソールにメッセージを出力したい
         println("090-1234-5678")
+        throw new UnauthorizedException("Invalid name")
         Ok(formatNames(Seq(name)))
     }
 
@@ -28,6 +30,7 @@ class SampleController @Inject()(userService: UserService,
                 InternalServerError("An error occurred")
         }
     }
+
 
     private def formatNames(names: Seq[String]): String = {
         val formattedNames = names.map(_ + " san").mkString("[", ", ", "]")
