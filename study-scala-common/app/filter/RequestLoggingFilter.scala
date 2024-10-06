@@ -8,7 +8,7 @@ import java.util.UUID
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 
-class GlobalLoggingFilter @Inject()()(implicit val mat: Materializer, ec: ExecutionContext) extends EssentialFilter {
+class RequestLoggingFilter @Inject()()(implicit val mat: Materializer, ec: ExecutionContext) extends EssentialFilter {
 
     private val logger = Logger(this.getClass)
 
