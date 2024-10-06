@@ -10,13 +10,13 @@
     <import class="ch.qos.logback.core.ConsoleAppender"/>
 
     <appender name="STDOUT" class="ConsoleAppender">
-        <!-- カスタムフィルターがローカル環境では参照できないバグが解決されるまでコメントアウト -->
-        <!--        <filter class="logger.MaskingFilter"/>-->
-        <encoder class="PatternLayoutEncoder">
-            <charset>UTF-8</charset>
+        <charset>UTF-8</charset>
+        <!-- classで指定しているクラスを含むプロジェクトを一度ライブラリ化して、libディレクトに追加し、build.sbtのdependsOnを無効にすれば動作検証は可能 -->
+        <!--　<layout class="logger.MaskingPatternLayout"> -->
+        <layout class="logger.MaskingPatternLayout">
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) %cyan(%logger{36}) %magenta(%X{pekkoSource}) %msg%n
             </pattern>
-        </encoder>
+        </layout>
     </appender>
 
     <appender name="ASYNCSTDOUT" class="AsyncAppender">
