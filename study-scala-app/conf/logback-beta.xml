@@ -5,11 +5,11 @@
 <!DOCTYPE configuration>
 
 <configuration>
-    <import class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"/>
     <import class="ch.qos.logback.classic.AsyncAppender"/>
     <import class="ch.qos.logback.core.FileAppender"/>
     <import class="ch.qos.logback.core.rolling.RollingFileAppender"/>
     <import class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"/>
+    <import class="ch.qos.logback.core.encoder.LayoutWrappingEncoder"/>
 
     <configuration>
         <appender name="FILE" class="RollingFileAppender">
@@ -20,11 +20,12 @@
                 <cleanHistoryOnStart>true</cleanHistoryOnStart>
             </rollingPolicy>
 
-            <encoder class="PatternLayoutEncoder">
+            <encoder class="LayoutWrappingEncoder">
                 <charset>UTF-8</charset>
-                <pattern>%d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) %cyan(%logger{36}) %magenta(%X{pekkoSource})
-                    %msg%n
-                </pattern>
+                <!-- classで指定しているクラスを含むプロジェクトを一度ライブラリ化して、libディレクトに追加し、build.sbtのdependsOnを無効にすれば動作検証は可能 -->
+                <layout class="logger.MaskingPatternLayout">
+                    <pattern>%d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) %cyan(%logger{36}) %magenta(%X{pekkoSource}) %msg%n</pattern>
+                </layout>
             </encoder>
         </appender>
 
