@@ -1,0 +1,2 @@
+GET /sample/:name controllers.SampleController.findByName(name: String)
+GET /user/all controllers.SampleController.findAll()
