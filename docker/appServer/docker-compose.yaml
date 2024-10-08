@@ -1,0 +1,11 @@
+version: '3'
+services:
+  study-scala-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: play-app
+    ports:
+      - "9000:9000"
+    environment:
+      PLAY_SECRET: "J25H^Qf7``1kXL@VLD0ARUDup1xp@?S3CVeo:BR[WeNlptyWRdHBL[7bJqC6hJy>"
