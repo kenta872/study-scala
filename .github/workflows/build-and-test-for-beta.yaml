@@ -30,10 +30,15 @@ jobs:
       - name: Run tests
         run: sbt test
 
+      - name: Run tests with coverage
+        run: sbt clean coverage test
+
+      - name: Run coverage report
+        run: sbt coverageReport
+
       - name: coverage
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./target/scala-2.13/scoverage-report/scoverage.xml
           fail_ci_if_error: true
 
