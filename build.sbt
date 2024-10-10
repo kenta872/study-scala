@@ -1,5 +1,7 @@
 import sbt.Keys.{libraryDependencies, scalacOptions}
 
+coverageEnabled := true
+
 lazy val commonSettings = Seq(
     scalaVersion := "2.13.15",
     libraryDependencies += guice,
