@@ -1,7 +1,7 @@
 coverage:
   ignore:
-    - "app/filter/**"
-    - "app/logger/**"
+    - "study-scala-common/app/filter/**"
+    - "study-scala-common/app/logger/**"
   status:
     project:
       default:
