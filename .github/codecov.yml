@@ -1,4 +1,7 @@
 coverage:
+  ignore:
+    - "app/filter/**"
+    - "app/logger/**"
   status:
     project:
       default:
