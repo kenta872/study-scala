@@ -10,7 +10,6 @@ import repository.UserRepository
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-
 class UserServiceSpec extends PlaySpec with MockitoSugar {
     "UserService#findAll" should {
         "return all users" in {
