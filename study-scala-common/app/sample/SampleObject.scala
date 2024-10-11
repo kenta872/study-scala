@@ -1,10 +1,10 @@
 package sample
 
 object SampleObject extends App {
-    println("########## 関数オブジェクト - start ##########")
+    println("########## 関数オブジェクト - start ###########")
     private val sampleFunctionClass: SampleFunctionClass = new SampleFunctionClass
     sampleFunctionClass.functionMethod1()
-    println("########## 関数オブジェクト - end ##########")
+    println("########## 関数オブジェクト - end ###########")
 
 
     println("########## 条件分岐 - start ##########")
