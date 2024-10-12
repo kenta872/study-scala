@@ -27,9 +27,6 @@ jobs:
       - name: Run Scalafix
         run: sbt "scalafixAll --check"
 
-      - name: Run tests
-        run: sbt test
-
       - name: Run tests with coverage
         run: sbt clean coverage test
 
@@ -41,4 +38,3 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
-

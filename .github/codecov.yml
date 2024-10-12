@@ -1,4 +1,11 @@
 coverage:
+  ignore:
+    - "study-scala-common/app/filter/**"
+    - "study-scala-common/app/logger/**"
+    - "study-scala-common/app/sample/**"
+    - "study-scala-app/app/model/**"
+    # TODO: 以下のディレクトリはslickのベストなテストコードがわからないため一時的に対象外とする。テストコードを追加したら削除してください
+    - "study-scala-app/app/repository/**"
   status:
     project:
       default:

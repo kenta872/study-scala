@@ -26,7 +26,8 @@ lazy val commonSettings = Seq(
     libraryDependencies ++= Seq(
         "com.typesafe.play" %% "play-test" % "2.9.4" % Test,
         "org.mockito" %% "mockito-scala" % "1.17.37" % Test,
-        "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.1" % Test
+        "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.1" % Test,
+        "org.mockito" %% "mockito-scala-scalatest" % "1.17.37" % Test
     )
 )
 lazy val root = (project in file("."))
