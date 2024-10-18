@@ -58,5 +58,30 @@ class UserServiceSpec extends PlaySpec with MockitoSugar {
             val result = userService.findAll().futureValue
             result mustBe "ID: 1, Name: testUserA\nID: 2, Name: testUserB"
         }
+
+        "recover from exception" in {
+            // setup
+            val testData = Seq(
+                User(1, "testUserA", "testPasswordA"),
+                User(2, "testUserB", "testPasswordB")
+            )
+            val errorMessage = "test error"
+            val mockDbConfigProvider = mock[DatabaseConfigProvider]
+            val mockDbConfig = mock[DatabaseConfig[MySQLProfile]]
+            val mockDb = mock[mockDbConfig.profile.backend.Database]
+            val mockUserRepository = mock[UserRepository]
+
+            // when
+            when(mockDbConfigProvider.get[MySQLProfile]).thenReturn(mockDbConfig)
+            when(mockDbConfig.db).thenReturn(mockDb)
+            when(mockDb.run(DBIO.successful(testData))).thenReturn(Future.failed(new Exception(errorMessage)))
+            when(mockUserRepository.findAll()).thenReturn(DBIO.successful(testData))
+
+            // do
+            val userService = new UserService(mockUserRepository, mockDbConfigProvider)
+            val result = userService.findAll().failed.futureValue
+            result mustBe a[Exception]
+            result.getMessage mustBe errorMessage
+        }
     }
 }
