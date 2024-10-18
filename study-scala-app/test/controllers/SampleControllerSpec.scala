@@ -4,7 +4,6 @@ import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play._
 import play.api.libs.json.Json
-import play.api.mvc._
 import play.api.test.Helpers._
 import play.api.test._
 import sample.SampleConditionClass
@@ -14,7 +13,7 @@ import scala.collection.Seq
 import scala.concurrent.{ExecutionContext, Future}
 import scala.reflect.runtime.{universe, currentMirror => cm}
 
-class SampleControllerSpec extends PlaySpec with Results with MockitoSugar {
+class SampleControllerSpec extends PlaySpec with MockitoSugar {
     "SampleController#findByName" should {
         "return formatted name" in {
             // setup

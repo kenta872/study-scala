@@ -1,1 +1,1 @@
-GET /batch/ controllers.SampleController.sampleBatchController()
+GET /batch/ controllers.SampleController.sampleBatchController

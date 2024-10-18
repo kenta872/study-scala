@@ -27,8 +27,9 @@ lazy val commonSettings = Seq(
         "com.typesafe.play" %% "play-test" % "2.9.4" % Test,
         "org.mockito" %% "mockito-scala" % "1.17.37" % Test,
         "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.1" % Test,
-        "org.mockito" %% "mockito-scala-scalatest" % "1.17.37" % Test
-    )
+        "org.mockito" %% "mockito-scala-scalatest" % "1.17.37" % Test,
+        "com.h2database" % "h2" % "2.2.224" % Test,
+    ),
 )
 lazy val root = (project in file("."))
     .aggregate(studyScalaApp)
