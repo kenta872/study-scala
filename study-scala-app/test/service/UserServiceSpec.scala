@@ -2,7 +2,7 @@ package service
 
 import model.entity.User
 import org.mockito.Mockito.when
-import org.scalatest.concurrent.ScalaFutures.convertScalaFuture
+import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
 import play.api.db.slick.DatabaseConfigProvider
@@ -14,21 +14,22 @@ import slick.jdbc.MySQLProfile
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class UserServiceSpec extends PlaySpec with MockitoSugar {
+class UserServiceSpec extends PlaySpec with MockitoSugar with ScalaFutures {
     "UserService#findAll" should {
-        "return empty string when no users are found" in {
+        "return empty sequence when no users are found" in {
             // setup
             val testData = Seq.empty[User]
             val mockDbConfigProvider = mock[DatabaseConfigProvider]
             val mockDbConfig = mock[DatabaseConfig[MySQLProfile]]
             val mockDb = mock[mockDbConfig.profile.backend.Database]
             val mockUserRepository = mock[UserRepository]
+            val findAllAction = DBIO.successful(testData)
 
             // when
             when(mockDbConfigProvider.get[MySQLProfile]).thenReturn(mockDbConfig)
             when(mockDbConfig.db).thenReturn(mockDb)
-            when(mockDb.run(DBIO.successful(testData))).thenReturn(Future.successful(testData))
-            when(mockUserRepository.findAll()).thenReturn(DBIO.successful(testData))
+            when(mockUserRepository.findAll()).thenReturn(findAllAction)
+            when(mockDb.run(findAllAction)).thenReturn(Future.successful(testData))
 
             // do
             val userService = new UserService(mockUserRepository, mockDbConfigProvider)
@@ -46,42 +47,41 @@ class UserServiceSpec extends PlaySpec with MockitoSugar {
             val mockDbConfig = mock[DatabaseConfig[MySQLProfile]]
             val mockDb = mock[mockDbConfig.profile.backend.Database]
             val mockUserRepository = mock[UserRepository]
+            val findAllAction = DBIO.successful(testData)
 
             // when
             when(mockDbConfigProvider.get[MySQLProfile]).thenReturn(mockDbConfig)
             when(mockDbConfig.db).thenReturn(mockDb)
-            when(mockDb.run(DBIO.successful(testData))).thenReturn(Future.successful(testData))
-            when(mockUserRepository.findAll()).thenReturn(DBIO.successful(testData))
+            when(mockUserRepository.findAll()).thenReturn(findAllAction)
+            when(mockDb.run(findAllAction)).thenReturn(Future.successful(testData))
 
             // do
             val userService = new UserService(mockUserRepository, mockDbConfigProvider)
             val result = userService.findAll().futureValue
-            result mustBe "ID: 1, Name: testUserA\nID: 2, Name: testUserB"
+            result mustBe testData
         }
 
         "recover from exception" in {
             // setup
-            val testData = Seq(
-                User(1, "testUserA", "testPasswordA"),
-                User(2, "testUserB", "testPasswordB")
-            )
             val errorMessage = "test error"
             val mockDbConfigProvider = mock[DatabaseConfigProvider]
             val mockDbConfig = mock[DatabaseConfig[MySQLProfile]]
             val mockDb = mock[mockDbConfig.profile.backend.Database]
             val mockUserRepository = mock[UserRepository]
+            val findAllAction = DBIO.successful(Seq.empty[User]) // Action doesn't matter much here
 
             // when
             when(mockDbConfigProvider.get[MySQLProfile]).thenReturn(mockDbConfig)
             when(mockDbConfig.db).thenReturn(mockDb)
-            when(mockDb.run(DBIO.successful(testData))).thenReturn(Future.failed(new Exception(errorMessage)))
-            when(mockUserRepository.findAll()).thenReturn(DBIO.successful(testData))
+            when(mockUserRepository.findAll()).thenReturn(findAllAction)
+            when(mockDb.run(findAllAction)).thenReturn(Future.failed(new Exception(errorMessage)))
 
             // do
             val userService = new UserService(mockUserRepository, mockDbConfigProvider)
-            val result = userService.findAll().failed.futureValue
-            result mustBe a[Exception]
-            result.getMessage mustBe errorMessage
+            whenReady(userService.findAll().failed) { e =>
+                e mustBe a[Exception]
+                e.getMessage mustBe errorMessage
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package service
 
+import model.entity.User
 import play.api.Logger
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import repository.UserRepository
@@ -15,16 +16,11 @@ class UserService @Inject()(userRepository: UserRepository,
 
     private val logger = Logger(this.getClass)
 
-    def findAll(): Future[String] = {
-        val action = userRepository.findAll()
-        db.run(action).map(users => {
-            users.map(user => {
-                s"ID: ${user.id}, Name: ${user.name}"
-            }).mkString("\n")
-        }).recover({
+    def findAll(): Future[Seq[User]] = {
+        db.run(userRepository.findAll()).recover {
             case e: Exception =>
-                logger.error(e.getMessage)
+                logger.error(s"Failed to find all users: ${e.getMessage}", e)
                 throw e
-        })
+        }
     }
 }
